@@ -17,6 +17,24 @@ class BoardTest {
             { 0,1,1,1,2 },
             { 2,2,1,2,1 },
     };
+
+    private int[][] conf3 = {
+            { 0,0,1,0,0,0,0 },
+            { 0,2,2,1,0,0,0 },
+            { 0,1,1,1,2,0,0 },
+            { 2,2,1,2,1,0,0 },
+            { 2,2,1,2,1,0,0 },
+            { 2,2,1,2,1,0,0 },
+    };
+
+    private int[][] conf4 = {
+            { 0,0,1,0,0,0,0 },
+            { 0,2,1,1,0,0,0 },
+            { 0,1,2,1,2,0,0 },
+            { 2,2,2,2,1,0,0 },
+            { 2,2,2,1,1,1,0 },
+            { 1,2,2,2,1,1,0 },
+    };
     @Test
     void getColumn() {
         Board board = new Board(conf1);
@@ -47,5 +65,56 @@ class BoardTest {
         assertEquals(true, board.addChip(1, 4));
         assertEquals(false, board.addChip(1, 4));
         assertEquals(false, board.addChip(1, 4));
+    }
+    @Test
+    void fourInARow() {
+        assertEquals(true, Board.fourInARow(new int[] {0,1,1,1,0,1,1,1,1}, 1));
+        assertEquals(false, Board.fourInARow(new int[] {0,1,1,1,0,1,1,1,1}, 2));
+        assertEquals(false, Board.fourInARow(new int[] {0,0,0,0,0,0,2,2,2}, 2));
+        assertEquals(true, Board.fourInARow(new int[] {0,2,0,0,0,2,2,2,2}, 2));
+    }
+    @Test
+    void findHorizontalWin() {
+        // no wins
+        Board board = new Board(conf2);
+        assertEquals(false, board.findHorizontalWin(1));
+        assertEquals(false, board.findHorizontalWin(2));
+        assertEquals(false, new Board(conf3).findHorizontalWin(1));
+        assertEquals(false, new Board(conf3).findHorizontalWin(2));
+        assertEquals(false, new Board(conf4).findHorizontalWin(1));
+        // wins
+        assertEquals(true, new Board(conf4).findHorizontalWin(2));
+    }
+    @Test
+    void findVerticalWin() {
+        // no wins
+        assertEquals(false, new Board(conf4).findVerticalWin(1));
+        assertEquals(false, new Board(conf3).findVerticalWin(2));
+        // wins
+        assertEquals(true, new Board(conf4).findVerticalWin(2));
+        assertEquals(true, new Board(conf3).findVerticalWin(1));
+    }
+    @Test
+    void getDiagonalTopLeftToBottomRight() {
+        Board board = new Board(conf4);
+        assertArrayEquals(new int[] {0,2,2,2,1,1}, board.getDiagonalTopLeftToBottomRight(0,0));
+        assertArrayEquals(new int[] {1,2,0,0}, board.getDiagonalTopLeftToBottomRight(3,1));
+        assertArrayEquals(new int[] {1,1,0,}, board.getDiagonalTopLeftToBottomRight(4,3));
+    }
+    @Test
+    void getDiagonalTopRightToBottomLeft() {
+        int[][] conf4 = {
+                { 0,0,1,0,0,0,0 },
+                { 0,2,1,1,0,0,0 },
+                { 0,1,2,1,2,0,0 },
+                { 2,2,2,2,1,0,0 },
+                { 2,2,2,1,1,1,0 },
+                { 1,2,2,2,1,1,0 },
+        };
+        Board board = new Board(conf4);
+        assertArrayEquals(new int[] {0,0,2,2,2,2}, board.getDiagonalTopRightToBottomLeft(6,0));
+        assertArrayEquals(new int[] {0}, board.getDiagonalTopRightToBottomLeft(6,5));
+        assertArrayEquals(new int[] {0,1,1,2}, board.getDiagonalTopRightToBottomLeft(3,0));
+        assertArrayEquals(new int[] {2,2,1}, board.getDiagonalTopRightToBottomLeft(2,3));
     }
 }
