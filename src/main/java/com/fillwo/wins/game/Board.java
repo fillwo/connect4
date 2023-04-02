@@ -24,22 +24,22 @@ class WinReturn {
         for (int i=0; i<4; i++) {
             int[] tmpPos = new int[2];
             switch (direction) {
-                case HORIZONTAL:
+                case HORIZONTAL -> {
                     tmpPos[0] = startPosX + i;
                     tmpPos[1] = startPosY;
-                    break;
-                case VERTICAL:
+                }
+                case VERTICAL -> {
                     tmpPos[0] = startPosX;
                     tmpPos[1] = startPosY + i;
-                    break;
-                case DIAGONAL_LEFT_TO_RIGHT:
+                }
+                case DIAGONAL_LEFT_TO_RIGHT -> {
                     tmpPos[0] = startPosX + i;
                     tmpPos[1] = startPosY + i;
-                    break;
-                case DIAGONAL_RIGHT_TO_LEFT:
+                }
+                case DIAGONAL_RIGHT_TO_LEFT -> {
                     tmpPos[0] = startPosX - i;
                     tmpPos[1] = startPosY + i;
-                    break;
+                }
             }
             positions[i] = tmpPos;
         }
@@ -58,7 +58,7 @@ public class Board {
     private final int width;
     private final int height;
 
-    private int[][] entries; // 0 empty, 1 player one, 2 player two
+    private final int[][] entries; // 0 empty, 1 player one, 2 player two
 
     public Board() {
         this(7, 6);
