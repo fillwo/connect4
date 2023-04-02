@@ -1,5 +1,52 @@
 package com.fillwo.wins.game;
 
+enum Direction {
+    HORIZONTAL,
+    VERTICAL,
+    DIAGONAL_LEFT_TO_RIGHT,
+    DIAGONAL_RIGHT_TO_LEFT
+}
+
+class WinReturn {
+    boolean isWin;
+    int chipNum;
+    int[][] positions;
+
+    public WinReturn (boolean isWin, int chipNum) {
+        this.isWin = isWin;
+        this.chipNum = chipNum;
+    }
+    public WinReturn (boolean isWin, int chipNum, int startPosX, int startPosY, Direction direction) {
+        this(isWin, chipNum);
+
+        int[][] positions = new int[4][2];
+
+        for (int i=0; i<4; i++) {
+            int[] tmpPos = new int[2];
+            switch (direction) {
+                case HORIZONTAL:
+                    tmpPos[0] = startPosX + i;
+                    tmpPos[1] = startPosY;
+                    break;
+                case VERTICAL:
+                    tmpPos[0] = startPosX;
+                    tmpPos[1] = startPosY + i;
+                    break;
+                case DIAGONAL_LEFT_TO_RIGHT:
+                    tmpPos[0] = startPosX + i;
+                    tmpPos[1] = startPosY + i;
+                    break;
+                case DIAGONAL_RIGHT_TO_LEFT:
+                    tmpPos[0] = startPosX - i;
+                    tmpPos[1] = startPosY + i;
+                    break;
+            }
+            positions[i] = tmpPos;
+        }
+        this.positions = positions;
+    }
+}
+
 public class Board {
 
 //    [ [0,1,2],
@@ -82,38 +129,21 @@ public class Board {
         return true;
     }
 
-    public static boolean fourInARow(int[] arr, int value) {
+    public static int findFourInARow(int[] arr, int value) {
         int cnt = 0;
+        int beginningIdx = -1;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == value) {
                 cnt += 1;
                 if (cnt == 4) {
+                    beginningIdx = i - 3;
                     break;
                 }
             } else {
                 cnt = 0;
             }
         }
-        return cnt == 4;
-    }
-
-    public boolean findHorizontalWin(int chipNum) {
-        for (int[] row : this.entries) {
-            if(this.fourInARow(row, chipNum)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean findVerticalWin(int chipNum) {
-        for (int i = 0; i < this.width; i++) {
-            int[] col = this.getColumn(i);
-            if(this.fourInARow(col, chipNum)) {
-                return true;
-            }
-        }
-        return false;
+        return beginningIdx;
     }
 
     public int[] getDiagonalTopLeftToBottomRight(int posX, int posY) {
@@ -138,19 +168,70 @@ public class Board {
         return diagonal;
     }
 
-    public boolean findDiagonalWin(int chipNum) {
+    public WinReturn findHorizontalWin(int chipNum) {
+        for (int i = 0; i < this.height; i++) {
+            int fIdx = Board.findFourInARow(this.entries[i], chipNum);
+            if(fIdx >= 0) {
+                return new WinReturn(true, chipNum, fIdx, i, Direction.HORIZONTAL);
+            }
+        }
+        return new WinReturn(false, chipNum);
+    }
+
+    public WinReturn findVerticalWin(int chipNum) {
+        for (int i = 0; i < this.width; i++) {
+            int[] col = this.getColumn(i);
+            int fIdx = Board.findFourInARow(col, chipNum);
+            if(fIdx >= 0) {
+                return new WinReturn(true, chipNum, i, fIdx, Direction.VERTICAL);
+            }
+        }
+        return new WinReturn(false, chipNum);
+    }
+
+    public WinReturn findDiagonalWin(int chipNum) {
         // check diagonal rows from
         // top left to bottom right
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
-                // todo: work in progress
                 int remaining_height = this.height - i;
                 int remaining_width = this.width - j;
                 if (remaining_height >= 4 && remaining_width >= 4) {
-
+                    int[] diagonal = this.getDiagonalTopLeftToBottomRight(j, i);
+                    int fIdx = Board.findFourInARow(diagonal, chipNum);
+                    if (fIdx >= 0) {
+                        return new WinReturn(
+                                true,
+                                chipNum,
+                                j + fIdx,
+                                i + fIdx,
+                                Direction.DIAGONAL_LEFT_TO_RIGHT
+                        );
+                    }
                 }
             }
         }
-        return false;
+        // check diagonal rows from
+        // top right to bottom left
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                int remaining_height = this.height - i;
+                int remaining_width = j + 1;
+                if (remaining_height >= 4 && remaining_width >= 4) {
+                    int[] diagonal = this.getDiagonalTopRightToBottomLeft(j, i);
+                    int fIdx = Board.findFourInARow(diagonal, chipNum);
+                    if (fIdx >= 0) {
+                        return new WinReturn(
+                                true,
+                                chipNum,
+                                j - fIdx,
+                                i + fIdx,
+                                Direction.DIAGONAL_RIGHT_TO_LEFT
+                        );
+                    }
+                }
+            }
+        }
+        return new WinReturn(false, chipNum);
     }
 }
