@@ -104,6 +104,18 @@ public class Board {
         return column;
     }
 
+    public boolean isFull() {
+        int cnt = 0;
+        for (int i = 0; i < this.height; i++) {
+            for (int j = 0; j < this.width; j++) {
+                if (this.entries[i][j] != 0) {
+                    cnt += 1;
+                }
+            }
+        }
+        return cnt == (this.width * this.height);
+    }
+
     public int[] getRow(int posY) {
         return this.entries[posY];
     }
@@ -232,6 +244,27 @@ public class Board {
                 }
             }
         }
+        return new WinReturn(false, chipNum);
+    }
+
+    public WinReturn findWin(int chipNum) {
+        WinReturn result;
+
+        result = this.findHorizontalWin(chipNum);
+        if (result.isWin) {
+            return result;
+        }
+
+        result = this.findVerticalWin(chipNum);
+        if (result.isWin) {
+            return result;
+        }
+
+        result = this.findDiagonalWin(chipNum);
+        if (result.isWin) {
+            return result;
+        }
+
         return new WinReturn(false, chipNum);
     }
 }
