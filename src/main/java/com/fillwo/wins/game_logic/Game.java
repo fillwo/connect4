@@ -1,17 +1,21 @@
-package com.fillwo.wins.game;
+package com.fillwo.wins.game_logic;
 
 public class Game {
 
-    private int turn = 0;
+    private int turn;
+    private boolean finished;
+    private Board board;
     private Player playerOne;
     private Player playerTwo;
 
     public Game() {
+        this.board = new Board();
         this.playerOne = new Player();
         this.playerTwo = new Player();
     }
 
     public Game(Player playerOne, Player playerTwo) {
+        this.board = new Board();
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
     }

@@ -1,4 +1,4 @@
-package com.fillwo.wins.game;
+package com.fillwo.wins.game_logic;
 
 import java.util.UUID;
 
