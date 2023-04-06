@@ -63,6 +63,14 @@ class BoardTest {
         assertTrue(board.addChip(1, 4));
         assertFalse(board.addChip(1, 4));
         assertFalse(board.addChip(1, 4));
+
+        Board emptyBoard = new Board();
+        emptyBoard.addChip(1, 5);
+        emptyBoard.addChip(2, 5);
+        emptyBoard.addChip(1, 6);
+        assertEquals(1, emptyBoard.getEntries()[5][5]);
+        assertEquals(2, emptyBoard.getEntries()[4][5]);
+        assertEquals(1, emptyBoard.getEntries()[5][6]);
     }
     @Test
     void getDiagonalTopLeftToBottomRight() {

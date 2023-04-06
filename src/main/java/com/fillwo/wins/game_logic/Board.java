@@ -129,7 +129,7 @@ public class Board {
             return false;
         }
 
-        int insertIdx = 0;
+        int insertIdx = this.height - 1;
         for (int i = 0; i < this.height; i++) {
             if (column[i] != 0) {
                 insertIdx = i - 1;
@@ -266,5 +266,20 @@ public class Board {
         }
 
         return new WinReturn(false, chipNum);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int[] row : this.entries) {
+            str.append("\n");
+            for (int v : row) {
+                str.append(" ").append(v);
+            }
+        }
+        str.append("\n");
+        return "Board{" +
+                str +
+                '}';
     }
 }

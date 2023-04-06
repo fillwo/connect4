@@ -1,17 +1,11 @@
 package com.fillwo.wins.game_logic;
 
-class GameException extends Exception {
-    public GameException(String message) {
-        super(message);
-    }
-}
-
 public class Game {
     private int turn;
     private boolean finished;
-    private Board board;
-    private Player playerOne;
-    private Player playerTwo;
+    private final Board board;
+    private final Player playerOne;
+    private final Player playerTwo;
     private  Player winner;
     private int[][] winningChipPositions;
 
@@ -88,5 +82,21 @@ public class Game {
 
     public Player getPlayerTwo() {
         return playerTwo;
+    }
+
+    public int[][] getBoardStatus() {
+        return this.board.getEntries();
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public int[][] getWinningChipPositions() {
+        return winningChipPositions;
     }
 }
