@@ -1,9 +1,9 @@
-package com.fillwo.wins.controller;
+package com.fillwo.wins.dto;
 
 import com.fillwo.wins.game_logic.Game;
 import com.fillwo.wins.model.Room;
 
-public class PersonalRoomResponse {
+public class RoomDto {
     private final String roomId;
     private final String playerId;
     private boolean yourTurn;
@@ -13,7 +13,7 @@ public class PersonalRoomResponse {
 
     private final int[][] winningChipPositions;
 
-    public PersonalRoomResponse(String playerId, Room room) {
+    public RoomDto(String playerId, Room room) {
         Game game = room.getGame();
 
         this.roomId = room.getId();

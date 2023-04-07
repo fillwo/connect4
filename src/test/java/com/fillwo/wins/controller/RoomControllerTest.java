@@ -3,6 +3,7 @@ package com.fillwo.wins.controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fillwo.wins.dto.PlayDto;
 import com.fillwo.wins.model.Room;
 import com.fillwo.wins.service.RoomService;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ class RoomControllerTest {
         assertEquals(1, this.roomService.getAll().size());
 
         Room room = this.roomService.getAll().get(0);
-        PlayRequestPayload payload = new PlayRequestPayload();
+        PlayDto payload = new PlayDto();
         payload.setRoomId(room.getId());
         payload.setPlayerId(room.getGame().getPlayerOne().getId());
         payload.setPosX(5);
