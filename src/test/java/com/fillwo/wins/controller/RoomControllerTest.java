@@ -44,6 +44,12 @@ class RoomControllerTest {
     }
 
     @Test
+    public void playGameMissingArgs() throws Exception {
+        this.mockMvc.perform(post("/rooms/play"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void playGame() throws Exception {
         assertEquals(0, this.roomService.getAll().size());
         this.mockMvc.perform(post("/rooms/create"))
