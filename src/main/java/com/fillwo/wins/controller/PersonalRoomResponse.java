@@ -18,7 +18,7 @@ public class PersonalRoomResponse {
 
         this.roomId = room.getId();
         this.playerId = playerId;
-        this.boardStatus = game.getBoardStatus();
+        this.boardStatus = game.getBoard().getEntries();
         this.finished = game.isFinished();
         this.winningChipPositions = game.getWinningChipPositions();
 

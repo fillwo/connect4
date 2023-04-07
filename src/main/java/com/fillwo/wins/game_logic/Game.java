@@ -84,8 +84,8 @@ public class Game {
         return playerTwo;
     }
 
-    public int[][] getBoardStatus() {
-        return this.board.getEntries();
+    public Board getBoard() {
+        return this.board;
     }
 
     public boolean isFinished() {
