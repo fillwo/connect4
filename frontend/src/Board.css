@@ -1,0 +1,44 @@
+.row {
+    display: flex;
+}
+
+.field {
+    background-color: lightgrey;
+}
+
+.circle {
+    height: 50px;
+    width: 50px;
+    
+    border-radius: 50%;
+    display: inline-block;
+    margin: 4px;
+}
+
+.circle0 {
+    background-color: #a2a2a2;
+}
+
+.circle1 {
+    background-color: darkorange;
+}
+
+.circle2 {
+    background-color: darkred;
+}
+
+
+.enter {
+    height: 12px;
+    width: 50px;
+    background-color: #6f7084;
+    margin: 0px 4px 0px 4px;
+}
+
+.enter1:hover {
+    background-color: darkorange;
+}
+
+.enter2:hover {
+    background-color: darkred;
+}
