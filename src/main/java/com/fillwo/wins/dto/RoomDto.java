@@ -11,6 +11,8 @@ public class RoomDto {
     private final int[][] boardStatus;
     private final String gameState;
 
+    private int playerNum;
+
     private final int[][] winningChipPositions;
 
     public RoomDto(String playerId, Room room) {
@@ -26,11 +28,17 @@ public class RoomDto {
         boolean isPlayerOne = playerId.equals(game.getPlayerOne().getId());
         boolean isPlayerTwo = playerId.equals(game.getPlayerTwo().getId());
 
-        if (isPlayerOne && game.getTurn() == 0) {
-            this.yourTurn = true;
+        if (isPlayerOne) {
+            this.playerNum = 1;
+            if (game.getTurn() == 0) {
+                this.yourTurn = true;
+            }
         }
-        if (isPlayerTwo && game.getTurn() == 1) {
-            this.yourTurn = true;
+        if (isPlayerTwo) {
+            this.playerNum = 2;
+            if (game.getTurn() == 1) {
+                this.yourTurn = true;
+            }
         }
 
         // determine the game state: ONGOING, WON, LOST, DRAW
@@ -74,5 +82,9 @@ public class RoomDto {
 
     public int[][] getWinningChipPositions() {
         return winningChipPositions;
+    }
+
+    public int getPlayerNum() {
+        return playerNum;
     }
 }
