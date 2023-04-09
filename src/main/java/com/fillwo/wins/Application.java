@@ -13,6 +13,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	// todo: only enable cors in dev mode
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {

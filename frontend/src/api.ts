@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-
-const BASE_URL = "http://localhost:8080";
+import { BASE_URL } from "./config";
 
 type Game = {
   turn: number;

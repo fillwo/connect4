@@ -1,7 +1,9 @@
-import React, { FC, Fragment, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import api, { RoomDto } from "./api";
 import Board from "./Board";
+import useStompClient from "./hooks/useStompClient";
+import useSubscription from "./hooks/useSubscription";
 
 type GameStateProps = {
   gameState: RoomDto;
@@ -25,9 +27,22 @@ const GameStateMessage: FC<GameStateProps> = ({ gameState }) => {
 };
 
 const Game: FC = () => {
+  const [gameState, setGameState] = useState<RoomDto | null>(null);
+
   const { roomId, playerId } = useParams();
 
-  const [gameState, setGameState] = useState<RoomDto | null>(null);
+  const { connected, client } = useStompClient();
+
+  const roomUpdateCallback = useCallback((res: RoomDto) => {
+    console.log("got roomUpdate!!", res);
+    setGameState(res);
+  }, []);
+
+  useSubscription(
+    client,
+    playerId ? `/topic/${playerId}` : null,
+    roomUpdateCallback
+  );
 
   const addChip = async (posX: number) => {
     if (gameState) {
@@ -63,6 +78,7 @@ const Game: FC = () => {
         <Fragment>
           <h1>Connect 4</h1>
           <GameStateMessage gameState={gameState}></GameStateMessage>
+          <div> Socket connected: {connected ? "true" : "false"}</div>
           <Board
             boardState={gameState.boardStatus}
             yourTurn={gameState.yourTurn}
