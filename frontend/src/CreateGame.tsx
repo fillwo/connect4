@@ -1,12 +1,13 @@
 import React, { FC, Fragment, useState } from "react";
 import api, { NewRoom } from "./api";
+import { Link } from "react-router-dom";
 
 const createOpponentsLink = (room: NewRoom) => {
-  return `${window.location.href}game/${room.id}/${room.game.playerTwo.id}`;
+  return `game/${room.id}/${room.game.playerTwo.id}`;
 };
 
 const createOwnLink = (room: NewRoom) => {
-  return `${window.location.href}game/${room.id}/${room.game.playerOne.id}`;
+  return `game/${room.id}/${room.game.playerOne.id}`;
 };
 
 const CreateGame: FC = () => {
@@ -33,13 +34,13 @@ const CreateGame: FC = () => {
           <h3> Game created </h3>
           <div> Send this link to your opponent: </div>
           <div style={{ marginBottom: 12 }}>
-            <a href={createOpponentsLink(newRoom)}>
+            <Link to={createOpponentsLink(newRoom)}>
               {createOpponentsLink(newRoom)}
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a href={createOwnLink(newRoom)}> Enter the game ...</a>
+            <Link to={createOwnLink(newRoom)}> Enter the game ...</Link>
           </div>
         </div>
       )}
