@@ -47,6 +47,7 @@ public class RoomController {
 
     @PostMapping("/rooms/play")
     public RoomDto roomPlay(@RequestBody PlayDto payload) {
+        Room updatedRoom;
         String roomId = payload.getRoomId();
         String playerId = payload.getPlayerId();
         int posX = payload.getPosX();
@@ -62,7 +63,8 @@ public class RoomController {
         }
 
         try {
-            this.roomService.addChip(roomId, playerId, posX);
+            // todo: properly test room return in test cases
+            updatedRoom = this.roomService.addChip(roomId, playerId, posX);
         } catch (GameException e) {
             System.out.println("GameException " + e);
             throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED);
@@ -71,16 +73,16 @@ public class RoomController {
         // send websocket update to other client
         String opponentId;
         if (isPlayerOne) {
-            opponentId = room.getGame().getPlayerTwo().getId();
+            opponentId = updatedRoom.getGame().getPlayerTwo().getId();
         } else {
-            opponentId = room.getGame().getPlayerOne().getId();
+            opponentId = updatedRoom.getGame().getPlayerOne().getId();
         }
 
         this.simpMessagingTemplate.convertAndSend(
                 "/topic/" + opponentId,
-                new RoomDto(opponentId, room)
+                new RoomDto(opponentId, updatedRoom)
         );
 
-        return new RoomDto(playerId, room);
+        return new RoomDto(playerId, updatedRoom);
     }
 }

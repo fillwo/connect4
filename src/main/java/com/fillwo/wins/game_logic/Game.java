@@ -1,11 +1,20 @@
 package com.fillwo.wins.game_logic;
 
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.relational.core.mapping.Embedded;
+
+import java.util.Arrays;
+
 public class Game {
     private int turn;
     private boolean finished;
+    @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL)
     private final Board board;
+    @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL, prefix = "player_one_")
     private final Player playerOne;
+    @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL, prefix = "player_two_")
     private final Player playerTwo;
+    @Embedded(onEmpty = Embedded.OnEmpty.USE_NULL, prefix = "winner_")
     private  Player winner;
     private int[][] winningChipPositions;
 
@@ -19,6 +28,18 @@ public class Game {
         this.board = new Board();
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
+    }
+
+    @PersistenceCreator
+    public Game(int turn, boolean finished, Board board, Player playerOne, Player playerTwo,
+                Player winner, int[][] winningChipPositions) {
+        this.turn = turn;
+        this.finished = finished;
+        this.board = board;
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        this.winner = winner;
+        this.winningChipPositions = winningChipPositions;
     }
 
     public void addChip(Player player, int posX) throws GameException {
@@ -98,5 +119,18 @@ public class Game {
 
     public int[][] getWinningChipPositions() {
         return winningChipPositions;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "turn=" + turn +
+                ", finished=" + finished +
+                ", board=" + board +
+                ", playerOne=" + playerOne +
+                ", playerTwo=" + playerTwo +
+                ", winner=" + winner +
+                ", winningChipPositions=" + Arrays.toString(winningChipPositions) +
+                '}';
     }
 }

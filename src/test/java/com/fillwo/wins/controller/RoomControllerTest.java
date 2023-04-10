@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+// todo: remove all rooms before each test case
 @SpringBootTest
 @AutoConfigureMockMvc
 class RoomControllerTest {

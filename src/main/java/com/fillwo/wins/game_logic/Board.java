@@ -1,5 +1,7 @@
 package com.fillwo.wins.game_logic;
 
+import org.springframework.data.annotation.PersistenceCreator;
+
 enum Direction {
     HORIZONTAL,
     VERTICAL,
@@ -73,6 +75,13 @@ public class Board {
     public Board(int[][] entries) {
         this.height = entries.length;
         this.width = entries[0].length;
+        this.entries = entries;
+    }
+
+    @PersistenceCreator
+    public Board(int width, int height, int[][] entries) {
+        this.width = width;
+        this.height = height;
         this.entries = entries;
     }
 

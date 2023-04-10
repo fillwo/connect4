@@ -1,7 +1,10 @@
 package com.fillwo.wins.game_logic;
 
+import org.springframework.data.annotation.PersistenceCreator;
+
 import java.util.Objects;
 import java.util.UUID;
+
 
 public class Player {
 
@@ -11,6 +14,11 @@ public class Player {
         this.id = String.valueOf(UUID.randomUUID());
     }
 
+    public Player(UUID id) {
+        this.id = String.valueOf(id);
+    }
+
+    @PersistenceCreator
     public Player(String id) {
         this.id = id;
     }
@@ -28,11 +36,14 @@ public class Player {
         return Objects.hash(id);
     }
 
-    public Player(UUID id) {
-        this.id = String.valueOf(id);
-    }
-
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id='" + id + '\'' +
+                '}';
     }
 }
