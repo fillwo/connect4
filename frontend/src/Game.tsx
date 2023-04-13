@@ -1,5 +1,7 @@
-import React, { FC, Fragment, useEffect, useState, useCallback } from "react";
+import React, { FC, useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import api, { RoomDto } from "./api";
 import Board from "./Board";
 import useStompClient from "./hooks/useStompClient";
@@ -13,16 +15,16 @@ const GameStateMessage: FC<GameStateProps> = ({ gameState }) => {
   switch (gameState.gameState) {
     case "ONGOING":
       if (gameState.yourTurn) {
-        return <h3> It's your turn! </h3>;
+        return <h2> It's your turn! </h2>;
       } else {
-        return <h3> Waiting for opponent's move ...</h3>;
+        return <h2> Waiting for opponent's move ...</h2>;
       }
     case "DRAW":
-      return <h3> Game finished, it's a draw!</h3>;
+      return <h2> Game finished, it's a draw!</h2>;
     case "WON":
-      return <h3> Game finished, you have won!</h3>;
+      return <h2> Game finished, you have won!</h2>;
     case "LOST":
-      return <h3> Game finished, you have lost!</h3>;
+      return <h2> Game finished, you have lost!</h2>;
   }
 };
 
@@ -31,7 +33,7 @@ const Game: FC = () => {
 
   const { roomId, playerId } = useParams();
 
-  const { connected, client } = useStompClient();
+  const { client } = useStompClient();
 
   const roomUpdateCallback = useCallback((res: RoomDto) => {
     console.log("got roomUpdate!!", res);
@@ -73,19 +75,24 @@ const Game: FC = () => {
   }, [roomId, playerId]);
 
   return (
-    <div style={{ padding: 48 }}>
+    <div style={{ padding: "0px 48px 0px 48px" }}>
       {gameState && (
-        <Fragment>
-          <h1>Connect 4</h1>
-          <GameStateMessage gameState={gameState}></GameStateMessage>
-          <div> Socket connected: {connected ? "true" : "false"}</div>
-          <Board
-            boardState={gameState.boardStatus}
-            yourTurn={gameState.yourTurn}
-            playerNum={gameState.playerNum}
-            addChip={addChip}
-          ></Board>
-        </Fragment>
+        <DndProvider backend={HTML5Backend}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div
+              style={{ marginLeft: "auto", marginRight: "auto", width: "60vh" }}
+            >
+              <h1>Connect 4</h1>
+              <GameStateMessage gameState={gameState}></GameStateMessage>
+              <Board
+                boardState={gameState.boardStatus}
+                yourTurn={gameState.yourTurn}
+                playerNum={gameState.playerNum}
+                addChip={addChip}
+              ></Board>
+            </div>
+          </div>
+        </DndProvider>
       )}
     </div>
   );

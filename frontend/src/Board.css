@@ -1,44 +1,76 @@
-.row {
-    display: flex;
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+    background-color: #333333;
+    border: solid 8px #333333;
+    border-radius: 5px;
 }
 
-.field {
-    background-color: lightgrey;
-}
-
-.circle {
-    height: 50px;
-    width: 50px;
-    
+.grid-item {
+    aspect-ratio: 1/ 1;
     border-radius: 50%;
-    display: inline-block;
-    margin: 4px;
 }
 
 .circle0 {
-    background-color: #a2a2a2;
+    background-color: #424246;
 }
 
 .circle1 {
-    background-color: darkorange;
+    background-color: orange;
 }
 
 .circle2 {
-    background-color: darkred;
+    background-color: #dc1b1b;
 }
 
-
-.enter {
-    height: 12px;
-    width: 50px;
-    background-color: #6f7084;
-    margin: 0px 4px 0px 4px;
+.circle1-drop-area {
+    background-color: #49371e;
 }
 
-.enter1:hover {
-    background-color: darkorange;
+.circle2-drop-area {
+    background-color: #431e1d;
 }
 
-.enter2:hover {
-    background-color: darkred;
+.grid-container-single {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, auto);
+    gap: 8px;
+    padding: 8px;
+}
+
+.grid-item-single {
+    aspect-ratio: 1/ 1;
+    border-radius: 50%;
+    grid-column-start: 6;
+}
+
+.grid-container-drop {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, auto);
+    padding: 8px 8px 0px 8px;
+}
+
+.grid-item-drop {
+    aspect-ratio: 1/ 1;
+    border-right: dashed 1px darkgrey;
+}
+
+.grid-item-drop:first-child {
+    border-left: dashed 1px darkgrey;
+}
+
+.drag-me-item {
+    position: relative;
+    grid-column-start: 7;
+}
+
+.drag-me-text {
+    position: absolute;
+    width: 100px;
+    font-size: 1.5em;
 }

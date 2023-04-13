@@ -1,13 +1,38 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+/* Font family Gaegu from Google Fonts - SIL Open Font License */
+@font-face {
+  font-family: 'Gaegu';
+  src: url('fonts/Gaegu-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'Gaegu';
+  src: url('fonts/Gaegu-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gaegu';
+  src: url('fonts/Gaegu-Light.ttf') format('truetype');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+
+body {
+  margin: 0;
+  font-family: Gaegu, sans-serif;
+  background-color: #1b1b1b;
+  color: white;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2em;
 }
