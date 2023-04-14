@@ -74,3 +74,9 @@
     width: 100px;
     font-size: 1.5em;
 }
+
+@media only screen and (max-width: 480px) {
+    .drag-me-text {
+        font-size: 1.17em;
+    }
+}

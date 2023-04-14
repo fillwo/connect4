@@ -18,16 +18,18 @@ const GameStateMessage: FC<GameStateProps> = ({ gameState }) => {
   switch (gameState.gameState) {
     case "ONGOING":
       if (gameState.yourTurn) {
-        return <h2> It's your turn! </h2>;
+        return <div className="game-message"> It's your turn! </div>;
       } else {
-        return <h2> Waiting for opponent's move ...</h2>;
+        return (
+          <div className="game-message"> Waiting for opponent's move...</div>
+        );
       }
     case "DRAW":
-      return <h2> Game finished, it's a draw!</h2>;
+      return <div className="game-message"> Game finished, it's a draw!</div>;
     case "WON":
-      return <h2> Game finished, you have won!</h2>;
+      return <div className="game-message"> Game finished, you have won!</div>;
     case "LOST":
-      return <h2> Game finished, you have lost!</h2>;
+      return <div className="game-message"> Game finished, you have lost!</div>;
   }
 };
 
