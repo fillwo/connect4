@@ -2,10 +2,13 @@ import React, { FC, useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
 import api, { RoomDto } from "./api";
 import Board from "./Board";
 import useStompClient from "./hooks/useStompClient";
 import useSubscription from "./hooks/useSubscription";
+import useIsTouchScreen from "./hooks/useIsTouchScreen";
+import "./Game.css";
 
 type GameStateProps = {
   gameState: RoomDto;
@@ -30,6 +33,8 @@ const GameStateMessage: FC<GameStateProps> = ({ gameState }) => {
 
 const Game: FC = () => {
   const [gameState, setGameState] = useState<RoomDto | null>(null);
+
+  const isTouch = useIsTouchScreen();
 
   const { roomId, playerId } = useParams();
 
@@ -75,18 +80,17 @@ const Game: FC = () => {
   }, [roomId, playerId]);
 
   return (
-    <div style={{ padding: "0px 48px 0px 48px" }}>
+    <div>
       {gameState && (
-        <DndProvider backend={HTML5Backend}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div
-              style={{ marginLeft: "auto", marginRight: "auto", width: "60vh" }}
-            >
+        <DndProvider backend={isTouch ? TouchBackend : HTML5Backend}>
+          <div className="content-wrapper">
+            <div className="content">
               <h1>Connect 4</h1>
               <GameStateMessage gameState={gameState}></GameStateMessage>
               <Board
                 boardState={gameState.boardStatus}
                 yourTurn={gameState.yourTurn}
+                isTouch={isTouch}
                 playerNum={gameState.playerNum}
                 addChip={addChip}
               ></Board>
