@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, useState } from "react";
 import api, { NewRoom } from "./api";
 import { Link } from "react-router-dom";
 
@@ -25,26 +25,34 @@ const CreateGame: FC = () => {
   };
 
   return (
-    <Fragment>
-      <div style={{ marginBottom: 16 }}> 4 Wins </div>
-      <button onClick={postCreateGame}> create new game </button>
+    <div className="center-center">
+      <div style={{ textAlign: "center" }}>
+        <h1> Connect 4 </h1>
+        <h3> Play a Game of Connect 4 with a Friend</h3>
+        <button
+          style={{ marginTop: 12, marginBottom: 80 }}
+          onClick={postCreateGame}
+        >
+          NEW GAME
+        </button>
 
-      {newRoom !== null && (
-        <div>
-          <h3> Game created </h3>
-          <div> Send this link to your opponent: </div>
-          <div style={{ marginBottom: 12 }}>
-            <Link to={createOpponentsLink(newRoom)}>
-              {createOpponentsLink(newRoom)}
-            </Link>
-          </div>
-
+        {newRoom !== null && (
           <div>
-            <Link to={createOwnLink(newRoom)}> Enter the game ...</Link>
+            <h3> Game created </h3>
+            <div> Send this link to your opponent: </div>
+            <div style={{ marginBottom: 12 }}>
+              <Link to={createOpponentsLink(newRoom)}>
+                {createOpponentsLink(newRoom)}
+              </Link>
+            </div>
+
+            <div>
+              <Link to={createOwnLink(newRoom)}> Enter the game ...</Link>
+            </div>
           </div>
-        </div>
-      )}
-    </Fragment>
+        )}
+      </div>
+    </div>
   );
 };
 

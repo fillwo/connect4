@@ -1,12 +1,12 @@
 import { createHashRouter } from "react-router-dom";
 
-import App from "./App";
 import Game from "./Game";
+import CreateGame from "./CreateGame";
 
 const router = createHashRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <CreateGame></CreateGame>,
   },
   {
     path: "/game/:roomId/:playerId",
