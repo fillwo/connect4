@@ -1,7 +1,7 @@
 import { createHashRouter } from "react-router-dom";
 
-import Play from "./Play";
-import CreateGame from "./CreateGame";
+import Play from "./routes/Play/Play";
+import CreateGame from "./routes/Root/CreateGame";
 
 const router = createHashRouter([
   {

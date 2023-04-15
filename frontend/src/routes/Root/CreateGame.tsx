@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import api, { NewRoom } from "./api";
+import api, { NewRoom } from "../../api";
 import { Link } from "react-router-dom";
 
 const createOpponentsLink = (room: NewRoom) => {

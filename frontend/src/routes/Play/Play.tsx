@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import api, { RoomDto } from "./api";
+import api, { RoomDto } from "../../api";
 import Board from "./Board";
-import useStompClient from "./hooks/useStompClient";
-import useSubscription from "./hooks/useSubscription";
-import useIsTouchScreen from "./hooks/useIsTouchScreen";
+import useStompClient from "../../hooks/useStompClient";
+import useSubscription from "../../hooks/useSubscription";
+import useIsTouchScreen from "../../hooks/useIsTouchScreen";
 import styles from "./Play.module.css";
 
 type GameStateProps = {
