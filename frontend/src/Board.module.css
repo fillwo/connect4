@@ -1,5 +1,5 @@
 
-.grid-container {
+.gridContainer {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -9,7 +9,7 @@
     border-radius: 5px;
 }
 
-.grid-item {
+.gridItem {
     aspect-ratio: 1/ 1;
     border-radius: 50%;
 }
@@ -26,15 +26,15 @@
     background-color: #dc1b1b;
 }
 
-.circle1-drop-area {
+.circle1DropArea {
     background-color: #49371e;
 }
 
-.circle2-drop-area {
+.circle2DropArea {
     background-color: #431e1d;
 }
 
-.grid-container-single {
+.gridContainerSingle {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(1, auto);
@@ -42,41 +42,41 @@
     padding: 8px;
 }
 
-.grid-item-single {
+.gridItemSingle {
     aspect-ratio: 1/ 1;
     border-radius: 50%;
     grid-column-start: 6;
 }
 
-.grid-container-drop {
+.gridContainerDrop {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(1, auto);
     padding: 8px 8px 0px 8px;
 }
 
-.grid-item-drop {
+.gridItemDrop {
     aspect-ratio: 1/ 1;
     border-right: dashed 1px darkgrey;
 }
 
-.grid-item-drop:first-child {
+.gridItemDrop:first-child {
     border-left: dashed 1px darkgrey;
 }
 
-.drag-me-item {
+.dragMeItem {
     position: relative;
     grid-column-start: 7;
 }
 
-.drag-me-text {
+.dragMeText {
     position: absolute;
     width: 100px;
     font-size: 1.5em;
 }
 
 @media only screen and (max-width: 480px) {
-    .drag-me-text {
+    .dragMeText {
         font-size: 1.17em;
     }
 }

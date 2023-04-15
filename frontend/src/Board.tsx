@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { XYCoord, useDrag, useDragLayer, useDrop } from "react-dnd";
 
-import "./Board.css";
+import styles from "./Board.module.css";
 
 type BoardProps = {
   boardState: number[][];
@@ -14,13 +14,18 @@ type BoardProps = {
 // simle grid containing the chips
 const Grid: FC<{ boardState: number[][] }> = ({ boardState }) => {
   return (
-    <div className="grid-container">
+    <div className={styles.gridContainer}>
       {boardState
         .reduce((acc, curr) => {
           return [...acc, ...curr];
         }, [])
         .map((chip, idx) => {
-          return <div className={`grid-item circle${chip}`} key={idx}></div>;
+          return (
+            <div
+              className={`${styles.gridItem} ${styles[`circle${chip}`]}`}
+              key={idx}
+            ></div>
+          );
         })}
     </div>
   );
@@ -43,9 +48,9 @@ const DropItem: FC<{
   return (
     <div
       ref={drop}
-      className={
-        "grid-item-drop " + (isOver ? `circle${playerNum}-drop-area` : "")
-      }
+      className={`${styles.gridItemDrop} ${
+        isOver ? styles[`circle${playerNum}DropArea`] : ""
+      }`}
     ></div>
   );
 };
@@ -78,14 +83,14 @@ const CustomDragLayer: FC<{ playerNum: number }> = ({ playerNum }) => {
   if (!isDragging)
     return (
       <div
-        className={`grid-item-single circle${playerNum}`}
+        className={`${styles.gridItemSingle} ${styles[`circle${playerNum}`]}`}
         style={{ display: "none", pointerEvents: "none", gridColumnStart: 1 }}
       ></div>
     );
 
   return (
     <div
-      className={`grid-item-single circle${playerNum}`}
+      className={`${styles.gridItemSingle} ${styles[`circle${playerNum}`]}`}
       style={{
         ...computeItemStyles(diffOffset),
         pointerEvents: "none",
@@ -114,22 +119,24 @@ const Board: FC<BoardProps> = ({
   return (
     <div>
       <div style={{ visibility: yourTurn ? "visible" : "hidden" }}>
-        <div className="grid-container-single">
+        <div className={styles.gridContainerSingle}>
           {isTouch && <CustomDragLayer playerNum={playerNum}></CustomDragLayer>}
           <div
             ref={drag}
-            className={`grid-item-single circle${playerNum}`}
+            className={`${styles.gridItemSingle} ${
+              styles[`circle${playerNum}`]
+            }`}
             style={{ opacity: isDragging ? 0.2 : 1, gridRowStart: 1 }}
           ></div>
           <div
-            className="drag-me-item"
+            className={styles.dragMeItem}
             style={{ opacity: isDragging ? 0.2 : 1 }}
           >
-            <div className="drag-me-text">drag me</div>
+            <div className={styles.dragMeText}>drag me</div>
           </div>
         </div>
         <div
-          className="grid-container-drop"
+          className={styles.gridContainerDrop}
           style={{ visibility: isDragging ? "visible" : "hidden" }}
         >
           {boardState[0].map((_, idx) => {

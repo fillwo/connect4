@@ -8,7 +8,7 @@ import Board from "./Board";
 import useStompClient from "./hooks/useStompClient";
 import useSubscription from "./hooks/useSubscription";
 import useIsTouchScreen from "./hooks/useIsTouchScreen";
-import "./Game.css";
+import styles from "./Game.module.css";
 
 type GameStateProps = {
   gameState: RoomDto;
@@ -18,18 +18,32 @@ const GameStateMessage: FC<GameStateProps> = ({ gameState }) => {
   switch (gameState.gameState) {
     case "ONGOING":
       if (gameState.yourTurn) {
-        return <div className="game-message"> It's your turn! </div>;
+        return <div className={styles["game-message"]}> It's your turn! </div>;
       } else {
         return (
-          <div className="game-message"> Waiting for opponent's move...</div>
+          <div className={styles["game-message"]}>
+            Waiting for opponent's move...
+          </div>
         );
       }
     case "DRAW":
-      return <div className="game-message"> Game finished, it's a draw!</div>;
+      return (
+        <div className={styles["game-message"]}>
+          Game finished, it's a draw!
+        </div>
+      );
     case "WON":
-      return <div className="game-message"> Game finished, you have won!</div>;
+      return (
+        <div className={styles["game-message"]}>
+          Game finished, you have won!
+        </div>
+      );
     case "LOST":
-      return <div className="game-message"> Game finished, you have lost!</div>;
+      return (
+        <div className={styles["game-message"]}>
+          Game finished, you have lost!
+        </div>
+      );
   }
 };
 
@@ -85,8 +99,8 @@ const Game: FC = () => {
     <div>
       {gameState && (
         <DndProvider backend={isTouch ? TouchBackend : HTML5Backend}>
-          <div className="content-wrapper">
-            <div className="content">
+          <div className={styles["content-wrapper"]}>
+            <div className={styles.content}>
               <h1>Connect 4</h1>
               <GameStateMessage gameState={gameState}></GameStateMessage>
               <Board
