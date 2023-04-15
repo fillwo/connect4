@@ -1,6 +1,6 @@
 import { createHashRouter } from "react-router-dom";
 
-import Game from "./Game";
+import Play from "./Play";
 import CreateGame from "./CreateGame";
 
 const router = createHashRouter([
@@ -9,8 +9,8 @@ const router = createHashRouter([
     element: <CreateGame></CreateGame>,
   },
   {
-    path: "/game/:roomId/:playerId",
-    element: <Game></Game>,
+    path: "/play/:roomId/:playerId",
+    element: <Play></Play>,
   },
 ]);
 

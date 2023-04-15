@@ -3,11 +3,11 @@ import api, { NewRoom } from "./api";
 import { Link } from "react-router-dom";
 
 const createOpponentsLink = (room: NewRoom) => {
-  return `game/${room.id}/${room.game.playerTwo.id}`;
+  return `play/${room.id}/${room.game.playerTwo.id}`;
 };
 
 const createOwnLink = (room: NewRoom) => {
-  return `game/${room.id}/${room.game.playerOne.id}`;
+  return `play/${room.id}/${room.game.playerOne.id}`;
 };
 
 const CreateGame: FC = () => {

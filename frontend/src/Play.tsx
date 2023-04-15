@@ -8,7 +8,7 @@ import Board from "./Board";
 import useStompClient from "./hooks/useStompClient";
 import useSubscription from "./hooks/useSubscription";
 import useIsTouchScreen from "./hooks/useIsTouchScreen";
-import styles from "./Game.module.css";
+import styles from "./Play.module.css";
 
 type GameStateProps = {
   gameState: RoomDto;
@@ -18,36 +18,30 @@ const GameStateMessage: FC<GameStateProps> = ({ gameState }) => {
   switch (gameState.gameState) {
     case "ONGOING":
       if (gameState.yourTurn) {
-        return <div className={styles["game-message"]}> It's your turn! </div>;
+        return <div className={styles.gameMessage}> It's your turn! </div>;
       } else {
         return (
-          <div className={styles["game-message"]}>
+          <div className={styles.gameMessage}>
             Waiting for opponent's move...
           </div>
         );
       }
     case "DRAW":
       return (
-        <div className={styles["game-message"]}>
-          Game finished, it's a draw!
-        </div>
+        <div className={styles.gameMessage}>Game finished, it's a draw!</div>
       );
     case "WON":
       return (
-        <div className={styles["game-message"]}>
-          Game finished, you have won!
-        </div>
+        <div className={styles.gameMessage}>Game finished, you have won!</div>
       );
     case "LOST":
       return (
-        <div className={styles["game-message"]}>
-          Game finished, you have lost!
-        </div>
+        <div className={styles.gameMessage}>Game finished, you have lost!</div>
       );
   }
 };
 
-const Game: FC = () => {
+const Play: FC = () => {
   const [gameState, setGameState] = useState<RoomDto | null>(null);
 
   const isTouch = useIsTouchScreen();
@@ -99,7 +93,7 @@ const Game: FC = () => {
     <div>
       {gameState && (
         <DndProvider backend={isTouch ? TouchBackend : HTML5Backend}>
-          <div className={styles["content-wrapper"]}>
+          <div className={styles.contentWrapper}>
             <div className={styles.content}>
               <h1>Connect 4</h1>
               <GameStateMessage gameState={gameState}></GameStateMessage>
@@ -118,4 +112,4 @@ const Game: FC = () => {
   );
 };
 
-export default Game;
+export default Play;
