@@ -63,7 +63,6 @@ public class RoomController {
         }
 
         try {
-            // todo: properly test room return in test cases
             updatedRoom = this.roomService.addChip(roomId, playerId, posX);
         } catch (GameException e) {
             System.out.println("GameException " + e);

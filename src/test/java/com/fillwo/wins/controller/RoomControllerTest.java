@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fillwo.wins.dto.PlayDto;
 import com.fillwo.wins.model.Room;
 import com.fillwo.wins.service.RoomService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-// todo: remove all rooms before each test case
 @SpringBootTest
 @AutoConfigureMockMvc
 class RoomControllerTest {
@@ -31,6 +31,12 @@ class RoomControllerTest {
 
     @Autowired
     private RoomService roomService;
+
+    // clears the db before running each test case
+    @BeforeEach
+    public void setup() {
+        roomService.deleteAllRooms();
+    }
 
     @Test
     public void createRoom() throws Exception {
