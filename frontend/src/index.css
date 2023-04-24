@@ -58,3 +58,8 @@ button {
   height: 100vh;
   padding: 0 40px 0 40px;
 }
+
+.link {
+  color: #dc1b1b;
+  font-size: 1.2em;
+}
