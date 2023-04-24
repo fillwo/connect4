@@ -2,6 +2,7 @@ package com.fillwo.wins;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,7 +14,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	// todo: only enable cors in dev mode
+	@ConditionalOnProperty(name = "cors.enabled", havingValue = "true")
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
